@@ -1,3 +1,5 @@
+# learning objectives after completion: capture groups
+
 # remove all data between the expression "don't()" and "do()". Repeat Part1
 
 import re
