@@ -131,6 +131,3 @@ print(total)
 # print(data[0][::-1])
     
 
-
-
-print(start_positions)
