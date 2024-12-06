@@ -1,6 +1,3 @@
-# input has 2 parts. 1st contains pairs of numbers. Each pair creates a rule whereby the first must precede the second.
-# the second part of the input is a sequence:list[int] and the sequence must be checked against all the rules
-# whichever sequences remain must have their middlemost value totalled
 import re
 
 def multiple_index(value, sequence:list):
@@ -23,11 +20,9 @@ with open("input05.txt","r") as textfile:
         for value in line:
             value = int(value)
         sequences.append(line)
-        
+        # output for rules and sequences appears as expected
 
 
- 
-# output for rules and sequences appears as expected
 rules_tuples = []
 for rule in rules:
     rule = rule.split("|")
@@ -47,20 +42,46 @@ for sequence in sequences:
     accepted = True
     for first,second in rules_tuples:
         # print(first)
-
+         
         
         if first in sequence and second in sequence:
-            # print("x")
+                # print("x")
             first_position = sequence.index(first)
-            # print(sequence.index(first))
+                # print(sequence.index(first))
             indices_of_second = multiple_index(second, sequence)
-            # print(multiple_index(second,sequence))
+                # print(multiple_index(second,sequence))
+            indices_of_second.sort(reverse=True)
+            values_to_append = []
             if first_position > min(indices_of_second):
-                accepted = False
-                
-    
+                accepted = True
+
+                for index in indices_of_second:
+                    values_to_append.append(sequence[index])
+                    sequence.pop(index)
+                if values_to_append:
+                    for value in values_to_append:
+                        sequence.append(value)
+                    
+            
     if accepted:
         accepted_sequences.append(sequence)
+
+       
+            
+
+            # store them, remove them from the list from the highest first, add them to the end
+
+        
+
+            
+            
+
+                    
+    
+
+                
+    
+    
 
 
 # print(len(sequences),len(accepted_sequences))
@@ -71,5 +92,5 @@ for accepted_sequence in accepted_sequences:
 
         
 # print(sequences)
-print(total)
 
+print(total)
