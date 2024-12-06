@@ -7,9 +7,9 @@ import re
 def multiple_index(value, sequence:list):
     matching_indices = []
     
-    if str(value) in sequence:
+    if value in sequence:
         for i in range(len(sequence)):
-            if str(value)==sequence[i]:
+            if value==sequence[i]:
                 matching_indices.append(i)
     return matching_indices
 rules = []
@@ -19,7 +19,12 @@ with open("input05.txt","r") as textfile:
     lines = textfile.readlines()
     rules = re.findall("(\d\d\|\d\d)", "".join(lines))
     for line in lines[(len(rules)+1):]:
-        sequences.append((str(line)).strip())
+        line = (str(line)).strip()
+        line = line.split(",")
+        for value in line:
+            value = int(value)
+        sequences.append(line)
+        
 
 
  
@@ -42,12 +47,14 @@ for sequence in sequences:
     # print(sequence)
     accepted = True
     for first,second in rules_tuples:
+        # print(first)
 
         
         if first in sequence and second in sequence:
+            # print("x")
             first_position = sequence.index(first)
             # print(sequence.index(first))
-            indices_of_second = multiple_index(second), sequence
+            indices_of_second = multiple_index(second, sequence)
             # print(multiple_index(second,sequence))
             if first_position > min(indices_of_second):
                 accepted = False
@@ -60,5 +67,5 @@ for sequence in sequences:
 # print(len(sequences),len(accepted_sequences))
 print(len(accepted_sequences))
         
-
+# print(sequences)
 
