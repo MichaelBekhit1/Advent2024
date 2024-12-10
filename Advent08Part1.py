@@ -49,7 +49,7 @@ print(paired_positions)
 
 # why does this terminate without completing the sequence of node values
 
-
+# I know that if the lists are different lengths then zip ends prematurely but that doesnt seem to be the case here?
 
 ###########################testing########################
 
