@@ -39,9 +39,8 @@ for node, node_value in zip(nodes, node_values):
     if node.value == node_value:
         paired_positions.append((node.col, node.row_position, node_value))
 
-print(nodes)
-print(node_values)
-print(paired_positions)
+
+# print(paired_positions)
 # output:
 
 # ['C', 'e', '7', 'O', 'z', 't', 'k', 'h', '9', '5', 'T', 'o', 'c', 'H', 'w', '3', 'B', '6', 's', '4', '8', 'b', 'X', '1', 'J', 'K', 'x', '2', '0', 'j', 'W', 'G', 'E', 'S', 'Z', 'g']
@@ -54,13 +53,14 @@ print(paired_positions)
 ###########################testing########################
 
 letters = ["a","b","c"]
-numbers = [10,20,30,15]
+numbers = [10,20,30, 15, 20, 40]
 largest_number = 0
 
 for letter,number in zip(letters,numbers):
+    print(letter,number)
     if number > largest_number:
         largest_number = number
 
-# node values are all in a list node_values
-# 
+## output = 30
 tup = (1,2,3)
+print(largest_number)
