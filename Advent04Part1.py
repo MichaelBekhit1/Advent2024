@@ -1,11 +1,17 @@
-# establish the data in a grid or multidimensional array or a format that retains its shape(rows,cols)
-# apply word search logic for "xmas" - top to bottom, bottom to top, left to right, right to left, diagonally from top right
-# to bottom left, diagonally from bottom left to top right, diagonally from top left to bottom right, diagonally from bottom
-# right to top left for a total of 8 valid moves
+# start with a list of strings
+# if we call the enumerator of the string "columns" and the string itself a "row" then we can imagine that as a 2d list
+# there are 8 movements to check and a check has to span the length of xmas. 
+# checking starts xmas index at 0. paired with col,row indices depending on movement
+# position of each +1, until no match then clear the position vars and proceed from new position in col,row depending on move
+# forward iterates across each row checking. backwards iterates backwards across each row checking.
+# down iterates through columns checking. up iterates through columns backwards checking
+# diagonal is +1col+1row, +1col-1row, -1col+1row, -1col-1row
 
-# first thought: if it were arranged in a multidimensional array wherein each list was a row and the position in the array
-# represented columns then from each point in the row, I could run logic for valid moves and if it completes, apply a credit
-# to the total. Each logic would have to entail out of bounds checks so there would be loop management or stepped iteration.
+# more efficient to check from discovery of x than for every char of every string of the array but i figured i'd do that after.
+
+
+
+
 import itertools
 total = 0
 xmas = ["X", "M", "A", "S"]
