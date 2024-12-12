@@ -33,11 +33,20 @@ for node in nodes:
     if (node.value in node_values) == False:
         node_values.append(node.value)
 
-paired_positions = []
+def recursive_function(node_value_index):
+    
+    recursive_function(node_value_index - 1)
 
-for node, node_value in zip(nodes, node_values):
-    if node.value == node_value:
-        paired_positions.append((node.col, node.row_position, node_value))
+# describe the recursion
+#-----------------------------------#
+
+# checking all the values in a row is like checking the first and then all the values in a row
+
+# paired_positions = []
+
+# for node, node_value in zip(nodes, node_values):
+    # if node.value == node_value:
+        # paired_positions.append((node.col, node.row_position, node_value))
 
 
 # print(paired_positions)
