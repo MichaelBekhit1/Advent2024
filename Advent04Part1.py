@@ -13,10 +13,11 @@
 
 
 import itertools
+combinations = itertools.product((0, 1, -1), repeat=2)
 total = 0
 xmas = ["X", "M", "A", "S"]
 
-with open("input04.txt","r") as textfile:
+with open("input_dummy.txt","r") as textfile:
     lines = textfile.read().splitlines()
 
 
@@ -25,46 +26,55 @@ rows = len(lines[0])
 index = 0
 index2 = 0
 
+# for i in range(cols):
+#     for j in range(rows):
+#         index = 0
+#         if lines[i][j] == xmas[index]:
+#             index+=1
+#             next_i = i+1
+#             next_j = j-1
+#             # out of bounds check
+#             if 0 <= next_i < cols and 0 <= next_j < rows:
+#                 if lines[next_i][next_j] == xmas[index]:
+#                     print(lines[next_i][next_j])
+
+            
+            
 for i in range(cols):
     for j in range(rows):
-        
-        # forwards
-        if lines[i][j] == xmas[index]:
-            index +=1
-        
-        else:
+        for combination in combinations:
+            # print(combination[0])
+            if combination == (0,0):
+                continue
+
+            y_diff = combination[0]
+            x_diff = combination[1]
+            print(x_diff, y_diff)
+
             index = 0
+            y = i
+            x = j 
+            print(lines[y][x])
+            while  0 <= y < cols and 0 <= x < rows and lines[y][x] == xmas[index]:
+                
+                index+=1
+                y += y_diff
+                x += x_diff
+                print(x, y) 
+                # out of bounds check
+                if 0 <= y < cols and 0 <= x < rows:
+                    if lines[y][x] == xmas[index]:
+                        print(lines[y][x])
+                        if index == 3:
+                            total += 1
+                            break
+
         
-        if index > 2:
-            index = 0
-            total += 1
-        # backwards
-        if lines[i][j] == xmas[::-1][index]:
-            index +=1
-        else:
-            index = 0
-        if index >2:
-            index = 0
-            total +=1
-        # down
-        while index2 < cols:
-            if lines[index2][j] == xmas[index]:
-                index +=1
-                index2+=1
-            else:
-                index = 0
-                index2+=1
-            if index > 2:
-                index = 0
-                total +=1
-        index2 = 0
-        # wrong
         
-dummy_lines = lines[0]
-# print(lines[0])
-# print(lines[0][::-1][])
+# print([combinations for combinations in combination])     
 print(total)
 
 # 0 1 2 3
 # 4 5 6 7
 # 8 9 1 2
+
