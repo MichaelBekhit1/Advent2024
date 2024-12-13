@@ -13,16 +13,18 @@
 
 
 import itertools
-combinations = itertools.product((0, 1, -1), repeat=2)
+combinations = tuple(itertools.product((0, 1, -1), repeat=2))
 total = 0
+# can be a string
 xmas = ["X", "M", "A", "S"]
 
-with open("input_dummy.txt","r") as textfile:
+with open("input04.txt","r") as textfile:
     lines = textfile.read().splitlines()
 
 
 cols = len(lines)
 rows = len(lines[0])
+
 index = 0
 index2 = 0
 
@@ -42,30 +44,36 @@ index2 = 0
             
 for i in range(cols):
     for j in range(rows):
-        for combination in combinations:
-            # print(combination[0])
-            if combination == (0,0):
-                continue
+        # print(i,j)
+        # for combination in combinations:
+        #     # print(combination[0])
+        #     if combination == (0,0):
+        #         continue
 
-            y_diff = combination[0]
-            x_diff = combination[1]
-            print(x_diff, y_diff)
+        #     y_diff = combination[0]
+        #     x_diff = combination[1]
+        #     # print(x_diff, y_diff)
+        # can skip (0,0)
+
+        for y_diff, x_diff in combinations:
+
 
             index = 0
             y = i
             x = j 
-            print(lines[y][x])
+            # print(x,y)
+            # print(lines[y][x])
             while  0 <= y < cols and 0 <= x < rows and lines[y][x] == xmas[index]:
                 
                 index+=1
                 y += y_diff
                 x += x_diff
-                print(x, y) 
+                # print(x, y) 
                 # out of bounds check
                 if 0 <= y < cols and 0 <= x < rows:
                     if lines[y][x] == xmas[index]:
-                        print(lines[y][x])
-                        if index == 3:
+                        # print(lines[y][x])
+                        if index == (len(xmas) -1):
                             total += 1
                             break
 
