@@ -65,30 +65,36 @@ for i in range(cols):
             bottom_left = lines[y+1][x-1]
             top_right = lines[y-1][x+1]
 
-            if top_left == xmas[index -1] and bottom_right == xmas[index+1] and bottom_left == xmas[index-1] and top_right == xmas[index+1]:
+            if top_left == "M" and bottom_right == "S" and bottom_left == "S" and top_right == "M":
+                
                 total += 1
 
             # M  M
             #  A
             # S  S
-            elif top_left == xmas[index+1] and bottom_right == xmas[index-1] and bottom_left == xmas[index-1] and top_right == xmas[index+1]:
+            elif top_left == "M" and bottom_right == "S" and bottom_left == "M" and top_right == "S":
                 total += 1
+                
             # M  S
             #   A
             # M   S
 
-            elif top_left == xmas[index -1] and bottom_right == xmas[index+1] and bottom_left == xmas[index-1] and top_right == xmas[index+1]:
+            elif top_left == "S" and bottom_right == "M" and bottom_left == "S" and top_right == "M":
                 total +=1
             # S  M
             #  A
             # S M
-            elif top_left == xmas[index +1] and bottom_right == xmas[index-1] and bottom_left == xmas[index+1] and top_right == xmas[index-1]:
+            elif top_left == "S" and bottom_right == "M" and bottom_left == "M" and top_right == "S":
                 total +=1
             # S  S
             #  A
             # M  M
+            # print(xmas[index+1])
 
             #output 1472 wrong
+
+            #output 1877
+            1416
 
 
 
