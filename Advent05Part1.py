@@ -70,6 +70,6 @@ for accepted_sequence in accepted_sequences:
     total+= int(accepted_sequence[mid])
 
         
-# print(sequences)
+print(sequences)
 print(total)
 

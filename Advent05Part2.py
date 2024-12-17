@@ -1,96 +1,67 @@
 import re
+import itertools
 
-def multiple_index(value, sequence:list):
-    matching_indices = []
-    
-    if value in sequence:
-        for i in range(len(sequence)):
-            if value==sequence[i]:
-                matching_indices.append(i)
-    return matching_indices
-rules = []
-sequences = []
+# for every sequence, 
+
+rules:list[tuple] = []
+sequences:list[list] = []
+
 with open("input05.txt","r") as textfile:
     
     lines = textfile.readlines()
-    rules = re.findall("(\d\d\|\d\d)", "".join(lines))
-    for line in lines[(len(rules)+1):]:
-        line = (str(line)).strip()
-        line = line.split(",")
-        for value in line:
-            value = int(value)
-        sequences.append(line)
-        # output for rules and sequences appears as expected
+    for line in lines:
+        regex = re.findall("(\d\d)\|(\d\d)", line)
+        if regex:
+           rules.append(regex[0])
+    for line in lines[len(rules)+1::]:
+        sequences.append(line.strip().split(","))
+        
+                    
+# for each sequence, every value appearing in the second position in the rules list should appear after the value in the first position, if that is also
+# in the sequence.
+# if both parts in sequence, part 1 index should be before part 2 index
+# A B C D if B before D and D before A then D A B C, C D A B.
+# while...if changed.
 
-
-rules_tuples = []
-for rule in rules:
-    rule = rule.split("|")
-    rules_tuples.append((rule[0],rule[1]))
-
-# print(rules_tuples)
-test_sequence = sequences[0]
-test_sequence2 = ["57", "60","57", "60", "60"]
-# ['57,47,82,32,18']
-accepted_sequences = []
-rules = []
-
-
-
+incorrect_sequences = []
 for sequence in sequences:
     # print(sequence)
-    accepted = True
-    for first,second in rules_tuples:
-        # print(first)
-         
-        
-        if first in sequence and second in sequence:
-                # print("x")
-            first_position = sequence.index(first)
-                # print(sequence.index(first))
-            indices_of_second = multiple_index(second, sequence)
-                # print(multiple_index(second,sequence))
-            indices_of_second.sort(reverse=True)
-            values_to_append = []
-            if first_position > min(indices_of_second):
-                accepted = True
+    correct = True
+    
+    for rule in rules:
+        if rule[0] in sequence and rule[1] in sequence:
+            if sequence.index(rule[0]) > sequence.index(rule[1]):
+                correct = False
+    if correct == False:
+        incorrect_sequences.append(sequence)
 
-                for index in indices_of_second:
-                    values_to_append.append(sequence[index])
-                    sequence.pop(index)
-                if values_to_append:
-                    for value in values_to_append:
-                        sequence.append(value)
-                    
-            
-    if accepted:
-        accepted_sequences.append(sequence)
-
-       
-            
-
-            # store them, remove them from the list from the highest first, add them to the end
-
-        
-
-            
-            
-
-                    
+corrected_sequences = []
+for incorrect_sequence in incorrect_sequences:
+    
+    # print(incorrect_sequence)
+    
+    changed = True
     
 
+    for rule in rules:
+        to_correct_sequence = incorrect_sequence.copy()
+        while changed:
+            changed = False
+            if rule[0] in to_correct_sequence and rule[1] in to_correct_sequence:
                 
-    
-    
-
-
-# print(len(sequences),len(accepted_sequences))
-total = 0
-for accepted_sequence in accepted_sequences:
-    mid = int(len(accepted_sequence)*0.5)
-    total+= int(accepted_sequence[mid])
-
+                if to_correct_sequence.index(rule[0]) > to_correct_sequence.index(rule[1]):
+                    changed = True
+                    first_position = to_correct_sequence.index(rule[0])
+                    second_position = to_correct_sequence.index(rule[1])
+                    to_correct_sequence = to_correct_sequence[:second_position]+to_correct_sequence[first_position:first_position+1]+to_correct_sequence[second_position:second_position+1]+to_correct_sequence[first_position+1:]
+                    
         
-# print(sequences)
+    corrected_sequences.append(to_correct_sequence)
+total = 0                    
+for corrected_sequence in corrected_sequences:
+    middle = int(len(corrected_sequence) * 0.5)
+    total+= int(corrected_sequence[middle])
 
-print(total)
+print(total) 
+
+# 6190 wrong

@@ -8,3 +8,7 @@ b = a
 print(a,b)
 a = 7
 print(a,b)
+
+dummy_list[0]
+
+# mutable and immutable aliasing https://www.youtube.com/watch?app=desktop&v=_AEJHKGk9ns
