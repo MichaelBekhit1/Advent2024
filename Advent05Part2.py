@@ -40,31 +40,31 @@ for incorrect_sequence in incorrect_sequences:
     # incorrect sequence is list[str]
     
     changed = True
-    
-    
-    for rule in rules:
+    # to_correct_sequence = incorrect_sequence.copy()
+    while changed:
+        for rule in rules:
 
-        to_correct_sequence = incorrect_sequence.copy()
-        # to_correct_sequence is a shallow copy of a list[str]
-        while changed:
-            # end the loop unless correction sequence runs
-            changed = False
-            # correction sequence runs if both parts of the rule are present in the sequence and the index for the first is larger than the index for the
-            # second
-            if rule[0] in to_correct_sequence and rule[1] in to_correct_sequence:
-                
-                if to_correct_sequence.index(rule[0]) > to_correct_sequence.index(rule[1]):
-                    # if correction sequence has run, reactivate while loop
-                    changed = True
-
-                    first_position = to_correct_sequence.index(rule[0])
-                    second_position = to_correct_sequence.index(rule[1])
-                    # this moves the second position to immediately before the first and captures the rest of the data in order
-                    # I checked this output in testing_slices.py
-                    to_correct_sequence = to_correct_sequence[:second_position]+to_correct_sequence[first_position:first_position+1]+to_correct_sequence[second_position:second_position+1]+to_correct_sequence[first_position+1:]
+            
+            
+            
+                # end the loop unless correction sequence runs
+                changed = False
+                # correction sequence runs if both parts of the rule are present in the sequence and the index for the first is larger than the index for the
+                # second
+                if rule[0] in incorrect_sequence and rule[1] in incorrect_sequence:
                     
-        
-    corrected_sequences.append(to_correct_sequence)
+                    if incorrect_sequence.index(rule[0]) > incorrect_sequence.index(rule[1]):
+                        # if correction sequence has run, reactivate while loop
+                        changed = True
+
+                        first_rule_index = incorrect_sequence.index(rule[0])
+                        second_rule_index = incorrect_sequence.index(rule[1])
+                        # this moves the second position to immediately before the first and captures the rest of the data in order
+                        # I checked this output in testing_slices.py
+                        incorrect_sequence.insert(second_rule_index, incorrect_sequence.pop(first_rule_index))
+                        
+            
+    corrected_sequences.append(incorrect_sequence)
 total = 0 
 # corrected_sequences:list[list[str]]                   
 for corrected_sequence in corrected_sequences:
@@ -74,11 +74,13 @@ for corrected_sequence in corrected_sequences:
     middle = (length_of_sequence-1)/2
     
     value =  corrected_sequence[int(middle)]
-    
+    print(corrected_sequence, middle,value)
     total += int(value)
 
 print(total) 
-print(len(rules))
-print(sequences)
+# print(len(rules))
+# print(sequences)
+# 6190
+# 6424
 
 
